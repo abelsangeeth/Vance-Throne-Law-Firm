@@ -1,0 +1,20 @@
+# Agent temporary directory
+.tmp/
+
+# Secrets and environment variables
+.env
+
+# Windows system files
+Thumbs.db
+ehthumbs.db
+Desktop.ini
+
+# Common IDE and editor folders
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# Node dependency and compilation output
+node_modules/
+dist/

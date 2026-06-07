@@ -1,0 +1,309 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>VANCE & THORNE — Elite Corporate Law Counsel</title>
+  <!-- Google Fonts: Outfit & Inter -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+  <!-- Stylesheets -->
+  <link rel="stylesheet" href="/css/style.css">
+</head>
+<body>
+
+  <!-- Background Orbs -->
+  <div class="background-orb orb-1"></div>
+  <div class="background-orb orb-2"></div>
+
+  <!-- Header / Navigation -->
+  <header>
+    <div class="nav-container">
+      <div class="logo">
+        <span class="logo-accent">V&T</span> VANCE & THORNE
+      </div>
+      <nav>
+        <a href="#about" onclick="showSection('home')">Overview</a>
+        <a href="#practices" onclick="showSection('home')">Practices</a>
+        <a href="#attorneys" onclick="showSection('home')">Attorneys</a>
+        <a href="#booking-section" onclick="showSection('home')">Book Counsel</a>
+        <a href="#portal" id="portal-nav-link" class="nav-btn">Client Portal</a>
+      </nav>
+    </div>
+  </header>
+
+  <!-- Notification Toast -->
+  <div id="toast" class="toast"></div>
+
+  <!-- Main Content Wrapper -->
+  <main class="content-wrapper">
+
+    <!-- HOME SECTION -->
+    <section id="home-section" class="active-section">
+      
+      <!-- Hero Banner -->
+      <div class="hero">
+        <span class="hero-pretitle">PREMIUM LAW PRACTICE</span>
+        <h1>Architects of Legal Fortitude</h1>
+        <p>Providing precision corporate restructuring, tech patent litigation, and asset shielding for high-net-worth enterprises globally.</p>
+        <div class="hero-actions">
+          <a href="#booking-section" class="btn btn-gold">Schedule Consultation</a>
+          <a href="#attorneys" class="btn btn-outline">Meet Partners</a>
+        </div>
+      </div>
+
+      <!-- Practice Areas -->
+      <div id="practices" class="section-container">
+        <h2 class="section-title">Areas of Practice</h2>
+        <div class="grid grid-3">
+          <div class="card practice-card">
+            <div class="practice-icon">🏛️</div>
+            <h3>Corporate M&A</h3>
+            <p>Representing conglomerates and equity funds in high-stakes joint ventures, restructuring, and stock buyouts.</p>
+          </div>
+          <div class="card practice-card">
+            <div class="practice-icon">⚖️</div>
+            <h3>IP & Patent Litigation</h3>
+            <p>Shielding artificial intelligence platforms, cloud networks, and trade secrets in global compliance challenges.</p>
+          </div>
+          <div class="card practice-card">
+            <div class="practice-icon">💼</div>
+            <h3>Asset Preservation</h3>
+            <p>Designing cross-border multi-generational trust systems and offshore entity asset protection frameworks.</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- Attorneys Directory -->
+      <div id="attorneys" class="section-container">
+        <div class="section-header-row">
+          <div>
+            <h2 class="section-title">The Partners</h2>
+            <p class="section-subtitle">Excellence in specialized disciplines.</p>
+          </div>
+          <!-- Cache Monitor Badge -->
+          <div class="cache-monitor">
+            <span class="cache-indicator"></span>
+            <span id="cache-latency-text">Redis Caching: Inactive</span>
+          </div>
+        </div>
+        
+        <!-- Reload Button -->
+        <button onclick="loadAttorneys()" class="btn btn-sm btn-outline" style="margin-bottom: 1.5rem;">
+          🔄 Reload Directory
+        </button>
+
+        <div id="attorneys-grid" class="grid grid-3">
+          <!-- Dynamic Content -->
+          <div class="card loading-card">Loading practitioners...</div>
+        </div>
+      </div>
+
+      <!-- Booking Appointment Wizard -->
+      <div id="booking-section" class="section-container booking-container">
+        <div class="grid grid-2-equal">
+          <div class="booking-info">
+            <span class="booking-pre">APPOINTMENT RESERVATIONS</span>
+            <h2>Book Corporate Consultation</h2>
+            <p>Secure a confidential strategy alignment session. All consultation bookings trigger an automated background notification worker simulation.</p>
+            <div class="firm-contact">
+              <div class="contact-item"><strong>Location:</strong> One Financial Center, Floor 50, New York</div>
+              <div class="contact-item"><strong>Contact:</strong> concierge@vancethorne.com</div>
+              <div class="contact-item"><strong>Hours:</strong> Mon - Fri, 8:00 AM - 6:00 PM EST</div>
+            </div>
+          </div>
+          
+          <!-- Booking Form Card -->
+          <div class="card booking-card-inner">
+            <form id="booking-form" onsubmit="handleBook(event)">
+              <div class="form-group">
+                <label for="booking-attorney">Select Partner</label>
+                <select id="booking-attorney" required>
+                  <option value="" disabled selected>Choose a partner...</option>
+                </select>
+              </div>
+              <div class="form-group">
+                <label for="booking-datetime">Date & Time Selection</label>
+                <input type="datetime-local" id="booking-datetime" required>
+              </div>
+              <div class="form-group">
+                <label for="booking-topic">Matter Topic</label>
+                <input type="text" id="booking-topic" placeholder="e.g., Intellectual Property Patent Review" required>
+              </div>
+              <div class="form-group">
+                <label for="booking-notes">Special Instructions</label>
+                <textarea id="booking-notes" rows="3" placeholder="Provide context regarding the legal assets..."></textarea>
+              </div>
+              <button type="submit" class="btn btn-gold btn-block">Confirm Appointment</button>
+            </form>
+          </div>
+        </div>
+      </div>
+
+    </section>
+
+    <!-- CLIENT PORTAL SECTION (LOGGED IN / LOGGED OUT) -->
+    <section id="portal-section" class="inactive-section">
+      
+      <!-- LOGGED OUT VIEW -->
+      <div id="logged-out-view">
+        <div class="portal-login-grid">
+          
+          <!-- Auth Form Card -->
+          <div class="card auth-card">
+            <div class="auth-tabs">
+              <button id="tab-login" class="auth-tab active" onclick="switchAuthTab('login')">Sign In</button>
+              <button id="tab-register" class="auth-tab" onclick="switchAuthTab('register')">Sign Up</button>
+            </div>
+            
+            <!-- Login Form -->
+            <form id="login-form" onsubmit="handleLogin(event)" class="auth-form">
+              <div class="form-group">
+                <label for="login-email">Corporate Email</label>
+                <input type="email" id="login-email" placeholder="client@lawfirm.com" required>
+              </div>
+              <div class="form-group">
+                <label for="login-password">Password</label>
+                <input type="password" id="login-password" required>
+              </div>
+              <button type="submit" class="btn btn-gold btn-block">Authenticate Session</button>
+            </form>
+
+            <!-- Register Form -->
+            <form id="register-form" onsubmit="handleRegister(event)" class="auth-form hidden">
+              <div class="form-group">
+                <label for="register-name">Full Name</label>
+                <input type="text" id="register-name" placeholder="Johnathan Doe" required>
+              </div>
+              <div class="form-group">
+                <label for="register-email">Corporate Email</label>
+                <input type="email" id="register-email" placeholder="john.doe@company.com" required>
+              </div>
+              <div class="form-group">
+                <label for="register-password">Create Security Password</label>
+                <input type="password" id="register-password" placeholder="Min. 6 characters" required>
+              </div>
+              <div class="form-group">
+                <label for="register-role">Select Role Type</label>
+                <select id="register-role">
+                  <option value="client" selected>Client Portfolio</option>
+                  <option value="attorney">Attorney Associate</option>
+                </select>
+              </div>
+              <button type="submit" class="btn btn-gold btn-block">Establish Credentials</button>
+            </form>
+          </div>
+
+          <!-- Quick Access Logins Info -->
+          <div class="auth-info-card">
+            <h2>Secure Partner Portal</h2>
+            <p>Access active litigation documents, review billing records, and consult with lead legal partners through this dashboard.</p>
+            
+            <h4 style="margin-top: 1.5rem; color: #D4AF37;">Default Testing Credentials:</h4>
+            <div class="credential-grid">
+              <div class="cred-item" onclick="autoFill('sterling@lawfirm.com', 'sterling123')">
+                <strong>Client:</strong> sterling@lawfirm.com <br>
+                <span>sterling123</span>
+              </div>
+              <div class="cred-item" onclick="autoFill('vance@lawfirm.com', 'vance123')">
+                <strong>Attorney:</strong> vance@lawfirm.com <br>
+                <span>vance123</span>
+              </div>
+              <div class="cred-item" onclick="autoFill('admin@lawfirm.com', 'admin123')">
+                <strong>Admin:</strong> admin@lawfirm.com <br>
+                <span>admin123</span>
+              </div>
+            </div>
+            <p class="click-to-fill">💡 Tip: Click a credential block to auto-fill the login form.</p>
+          </div>
+
+        </div>
+      </div>
+
+      <!-- LOGGED IN VIEW -->
+      <div id="logged-in-view" class="hidden">
+        
+        <!-- Dashboard Header -->
+        <div class="dashboard-header card">
+          <div class="user-welcome">
+            <span class="dash-badge" id="user-role-badge">Client</span>
+            <h2 id="welcome-user-text">Welcome back, Client</h2>
+            <p id="user-email-text">client@company.com</p>
+          </div>
+          <div class="dashboard-actions">
+            <a href="/docs" target="_blank" class="btn btn-sm btn-outline">🔌 Swagger UI</a>
+            <button onclick="handleLogout()" class="btn btn-sm btn-danger">Log Out</button>
+          </div>
+        </div>
+
+        <!-- Dashboard Widgets -->
+        <div class="grid grid-2-unequal" style="margin-top: 2rem;">
+          
+          <!-- Left Column: Consultations and Bookings -->
+          <div class="dash-column">
+            
+            <!-- Bookings List -->
+            <div class="card dash-widget">
+              <div class="widget-header">
+                <h3>Consultation History</h3>
+                <span class="widget-count" id="consultation-count">0</span>
+              </div>
+              <div id="bookings-list" class="widget-list">
+                <div class="list-empty">No scheduled consultations.</div>
+              </div>
+            </div>
+
+            <!-- background queue worker job monitor -->
+            <div class="card dash-widget" style="margin-top: 1.5rem;">
+              <div class="widget-header">
+                <h3>Background Queue Monitor</h3>
+                <span class="worker-badge">BullMQ Sim</span>
+              </div>
+              <p class="widget-desc">Monitors background notification emails being dispatched asynchronously.</p>
+              <div id="queue-jobs-list" class="queue-jobs-list">
+                <div class="list-empty">No background jobs registered.</div>
+              </div>
+            </div>
+
+          </div>
+
+          <!-- Right Column: Cases and Files -->
+          <div class="dash-column">
+            
+            <!-- Cases List -->
+            <div class="card dash-widget">
+              <div class="widget-header">
+                <h3>Active Legal Folders</h3>
+                <span class="widget-count" id="case-count">0</span>
+              </div>
+              <div id="cases-list" class="widget-list">
+                <div class="list-empty">No active legal cases folders assigned.</div>
+              </div>
+            </div>
+
+          </div>
+
+        </div>
+
+      </div>
+
+    </section>
+
+  </main>
+
+  <!-- Footer -->
+  <footer>
+    <div class="footer-container">
+      <div>&copy; 2026 VANCE & THORNE. Built with elite-level Fastify and TypeScript. All rights reserved.</div>
+      <div class="footer-links">
+        <a href="/docs" target="_blank">API Docs</a>
+        <a href="/health" target="_blank">Health Monitor</a>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Frontend Logic -->
+  <script src="/js/app.js"></script>
+</body>
+</html>
