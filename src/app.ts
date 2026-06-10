@@ -34,10 +34,8 @@ app.register(helmet, {
       fontSrc: ["'self'", 'https://fonts.gstatic.com'],
       imgSrc: ["'self'", 'data:', 'https://images.unsplash.com'],
       scriptSrc: ["'self'", "'unsafe-inline'"],
-      frameAncestors: ["*"],
     },
   },
-  frameguard: false,
 });
 
 app.register(cors, {
